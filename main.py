@@ -69,3 +69,13 @@ def log_plot(x:np.ndarray,y:np.ndarray,xlabel:np.ndarray,ylabel:str,title:str,lo
     matplotlib.pyplot.figure: wykres zbiorów (x,y) zgody z opisem z zadania 7 
     """
     return None
+
+def zad1_funkcja(n:np.array):
+    y = n**3 - 3*n
+    plt.plot(n,y,label='wykres_y')
+    plt.title("Wykres")
+    plt.xlabel("x")
+    plt.ylabel("x^3 - 3x")
+    plt.grid(True)
+    plt.show()
+    return None
