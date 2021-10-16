@@ -69,7 +69,6 @@ def parallel_plot(x1:np.ndarray,y1:np.ndarray,x2:np.ndarray,y2:np.ndarray,
         ax2.plot(x2, y2)
         ax2.set(xlabel=x2label, ylabel=y2label)
         fig.suptitle(title)
-
         return fig
     elif orientation == '-':
         fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -78,12 +77,11 @@ def parallel_plot(x1:np.ndarray,y1:np.ndarray,x2:np.ndarray,y2:np.ndarray,
         ax2.plot(x2, y2)
         ax2.set(xlabel=x2label, ylabel=y2label)
         fig.suptitle(title)
-
         return fig
     else:
         return None
 
-def log_plot(x:np.ndarray,y:np.ndarray,xlabel:np.ndarray,ylabel:str,title:str,log_axis:str):
+def log_plot(x:np.ndarray,y:np.ndarray,xlabel:str,ylabel:str,title:str,log_axis:str):
     """Funkcja służąca do tworzenia wykresów ze skalami logarytmicznymi. 
     Szczegółowy opis w zadaniu 7.
     
@@ -101,7 +99,19 @@ def log_plot(x:np.ndarray,y:np.ndarray,xlabel:np.ndarray,ylabel:str,title:str,lo
     Returns:
     matplotlib.pyplot.figure: wykres zbiorów (x,y) zgody z opisem z zadania 7 
     """
-    return None
+    if x.shape != y.shape or min(x.shape) == 0:
+        return None
+    fig, ax = plt.subplots()
+    if log_axis == "x":
+        ax.semilogx(x,y)
+    elif log_axis == "y":
+        ax.semilogy(x,y)
+    elif log_axis == "xy":
+        ax.loglog(x,y)
+    else:
+        return None
+    ax.set(xlabel=xlabel,ylabel=ylabel,title=title)
+    return fig
 
 def zad1_funkcja(n:np.array):
     y = n**3 - 3*n
