@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 import string
 import random
 
-def compare_plot(x1:np.ndarray,y1:np.ndarray,x2:np.ndarray,y2:np.ndarray,
-                 xlabel: str,ylabel:str,title:str,label1:str,label2:str):
+
+def compare_plot(x1: np.ndarray, y1: np.ndarray, x2: np.ndarray, y2: np.ndarray,
+                 xlabel: str, ylabel: str, title: str, label1: str, label2: str):
     """Funkcja służąca do porównywania dwóch wykresów typu plot. 
     Szczegółowy opis w zadaniu 3.
-    
+
     Parameters:
     x1(np.ndarray): wektor wartości osi x dla pierwszego wykresu,
     y1(np.ndarray): wektor wartości osi y dla pierwszego wykresu,
@@ -21,11 +22,22 @@ def compare_plot(x1:np.ndarray,y1:np.ndarray,x2:np.ndarray,y2:np.ndarray,
     label1(str): nazwa serii z pierwszego wykresu,
     label2(str): nazwa serii z drugiego wykresu.
 
-    
+
     Returns:
-    matplotlib.pyplot.figure: wykres zbiorów (x1,y1), (x2,y2) zgody z opisem z zadania 3 
+    matplotlib.pyplot.figure: wykres zbiorów (x1,y1), (x2,y2) zgody z opisem z zadania 3
     """
-    return None
+    if x1.shape != y1.shape or x2.shape != y2.shape or min(x1.shape)==0 or min(x2.shape)==0:
+        return None
+    fig, ax = plt.subplots()
+    ax.plot(x1, y1, "-b", linewidth=4)
+    ax.plot(x2, y2, "-k", linewidth=2)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.legend(label1, label2)
+
+    return fig
+
 
 def parallel_plot(x1:np.ndarray,y1:np.ndarray,x2:np.ndarray,y2:np.ndarray,
                   x1label:str,y1label:str,x2label:str,y2label:str,title:str,orientation:str):
@@ -48,7 +60,28 @@ def parallel_plot(x1:np.ndarray,y1:np.ndarray,x2:np.ndarray,y2:np.ndarray,
     Returns:
     matplotlib.pyplot.figure: wykres zbiorów (x1,y1), (x2,y2) zgody z opisem z zadania 5
     """
-    return None
+    if x1.shape != y1.shape or x2.shape != y2.shape or min(x1.shape)==0 or min(x2.shape)==0:
+        return None
+    if orientation == '|':
+        fig, (ax1, ax2) = plt.subplots(2, 1)
+        ax1.plot(x1, y1)
+        ax1.set(xlabel=x1label, ylabel=y1label)
+        ax2.plot(x2, y2)
+        ax2.set(xlabel=x2label, ylabel=y2label)
+        fig.suptitle(title)
+
+        return fig
+    elif orientation == '-':
+        fig, (ax1, ax2) = plt.subplots(1, 2)
+        ax1.plot(x1, y1)
+        ax1.set(xlabel=x1label, ylabel=y1label)
+        ax2.plot(x2, y2)
+        ax2.set(xlabel=x2label, ylabel=y2label)
+        fig.suptitle(title)
+
+        return fig
+    else:
+        return None
 
 def log_plot(x:np.ndarray,y:np.ndarray,xlabel:np.ndarray,ylabel:str,title:str,log_axis:str):
     """Funkcja służąca do tworzenia wykresów ze skalami logarytmicznymi. 
@@ -79,3 +112,9 @@ def zad1_funkcja(n:np.array):
     plt.grid(True)
     plt.show()
     return None
+
+def spirala_do_jakiegos_zadania(a,b,fi):
+    r = a*np.exp(b*fi)
+    x = r * np.cos(fi)
+    y = r * np.sin(fi)
+    return x,y
